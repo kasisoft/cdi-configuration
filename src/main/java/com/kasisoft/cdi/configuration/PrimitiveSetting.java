@@ -6,7 +6,8 @@ import javax.inject.*;
 import java.lang.annotation.*;
 
 /**
- * Marker for configurable properties.
+ * Marker for configurable properties. <code>value()</code> as well as <code>defaultValue()</code> will be considered as
+ * <code>null</code> values in case they are empty.
  *
  * @ks.note [27-Dec-2013:KASI]   This annotation is similar to {@link Setting}. It's only needed as the returntype
  *                               cannot be used to distinguish production methods.
