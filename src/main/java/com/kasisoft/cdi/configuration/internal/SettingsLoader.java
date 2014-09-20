@@ -11,6 +11,7 @@ import java.util.*;
 
 import java.io.*;
 
+import lombok.*;
 import lombok.extern.slf4j.*;
 
 /**
@@ -50,16 +51,12 @@ public class SettingsLoader {
     
   }
 
-  public String getValue( String key ) {
+  public String getValue( @NonNull String key ) {
     return resolver.getProperty( key );
   }
 
-  public String getValue( String key, String defvalue ) {
-    String result = resolver.getProperty( key );
-    if( result == null ) {
-      result = defvalue;
-    }
-    return result;
+  public String getValue( @NonNull String key, String defvalue ) {
+    return resolver.getProperty( key, defvalue );
   }
 
 } /* ENDCLASS */

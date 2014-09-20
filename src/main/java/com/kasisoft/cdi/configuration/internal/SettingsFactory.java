@@ -98,7 +98,7 @@ public class SettingsFactory {
       key = ip.getMember().getName();
     }
 
-    String value = loader.getValue( key, defvalue );
+    String value = loader.getValue( key, StringFunctions.cleanup( defvalue ) );
 
     if( value == null ) {
       if( (required == null) || required.booleanValue() ) {
