@@ -21,7 +21,6 @@ import lombok.extern.slf4j.*;
  * @author daniel.kasmeroglu@kasisoft.net
  */
 @Singleton
-@Named
 @Slf4j
 public class SettingsLoader {
 
