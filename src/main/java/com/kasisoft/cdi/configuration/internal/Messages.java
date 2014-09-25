@@ -7,6 +7,9 @@ import com.kasisoft.libs.common.i18n.*;
  */
 public class Messages {
 
+  @I18N("Could not load properties of resource '%s'. Cause: %s")
+  public static I18NFormatter         could_not_load_properties;
+  
   @I18N("The value '%s' for the key '%s' could not be converted into the type '%s'. Cause: %s.")
   public static I18NFormatter         invalid_type;
   

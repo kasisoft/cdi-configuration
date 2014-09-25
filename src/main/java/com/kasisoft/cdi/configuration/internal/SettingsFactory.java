@@ -9,7 +9,6 @@ import com.kasisoft.libs.common.xml.adapters.*;
 import javax.annotation.*;
 import javax.enterprise.inject.*;
 import javax.enterprise.inject.spi.*;
-import javax.inject.*;
 
 import java.util.*;
 
@@ -24,9 +23,6 @@ import lombok.extern.slf4j.*;
  */
 @Slf4j
 public class SettingsFactory {
-
-  @Inject
-  private SettingsLoader                        loader;
 
   private Map<Class<?>,TypeAdapter<String,?>>   adapters;
 
@@ -98,7 +94,7 @@ public class SettingsFactory {
       key = ip.getMember().getName();
     }
 
-    String value = loader.getValue( key, StringFunctions.cleanup( defvalue ) );
+    String value = SettingsLoader.instance().getValue( key, StringFunctions.cleanup( defvalue ) );
 
     if( value == null ) {
       if( (required == null) || required.booleanValue() ) {
