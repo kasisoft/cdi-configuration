@@ -4,9 +4,6 @@ import static com.kasisoft.cdi.configuration.internal.Messages.*;
 
 import com.kasisoft.libs.common.util.*;
 
-import javax.annotation.*;
-import javax.inject.*;
-
 import java.util.*;
 
 import java.io.*;
@@ -21,22 +18,37 @@ import lombok.extern.slf4j.*;
  * 
  * @author daniel.kasmeroglu@kasisoft.net
  */
-@Singleton
 @Slf4j
 public class SettingsLoader {
 
   private static final String NAME_SETTINGS = "settings.properties";
 
-  private PropertyResolver   resolver;
-  
-  @PostConstruct
-  public void loadConfigurations() throws IOException {
+  private static SettingsLoader   instance = null;
 
+  static {
+    instance = new SettingsLoader();
+    try {
+      instance.load( NAME_SETTINGS );
+    } catch( IOException ex ) {
+      log.error( could_not_load_properties.format( NAME_SETTINGS, ex.getLocalizedMessage() ) );
+      throw new RuntimeException( could_not_load_properties.format( NAME_SETTINGS, ex.getLocalizedMessage() ), ex );
+    }
+  }
+  
+  public static SettingsLoader instance() {
+    return instance;
+  }
+  
+  private PropertyResolver   resolver;
+
+  private SettingsLoader() {
     resolver = new PropertyResolver( Thread.currentThread().getContextClassLoader() );
-    
     resolver.withSystemSubstitutions();
-    
-    resolver.load( NAME_SETTINGS );
+  }
+  
+  public void load( @NonNull String propfile ) throws IOException {
+
+    resolver.load( propfile );
     
     if( log.isDebugEnabled() ) {
       
