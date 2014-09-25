@@ -1,4 +1,4 @@
-package com.kasisoft.cdi.configuration.internal;
+package com.kasisoft.cdi.configuration;
 
 import static com.kasisoft.cdi.configuration.internal.Messages.*;
 
@@ -30,7 +30,7 @@ public class SettingsLoader {
   private PropertyResolver   resolver;
   
   @PostConstruct
-  private void loadConfigurations() throws IOException {
+  public void loadConfigurations() throws IOException {
 
     resolver = new PropertyResolver( Thread.currentThread().getContextClassLoader() );
     
