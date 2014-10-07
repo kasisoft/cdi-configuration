@@ -146,13 +146,13 @@
   <distributionManagement>
   
     <repository>
-      <id>kasisoft</id>
-      <name>kasisoft-releases</name>
+      <id>kasisoft-release</id>
+      <name>kasisoft-release</name>
       <url>https://kasisoft.com/artifactory/libs-release-local</url>
     </repository>
       
     <snapshotRepository>
-      <id>kasisoft</id>
+      <id>kasisoft-snapshots</id>
       <name>kasisoft-snapshots</name>
       <url>https://kasisoft.com/artifactory/libs-snapshot-local</url>
     </snapshotRepository>
