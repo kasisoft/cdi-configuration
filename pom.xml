@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.kasisoft.cdi</groupId>
   <artifactId>configuration</artifactId>
-  <version>0.1</version>
+  <version>0.1-SNAPSHOT</version>
   <name>CDI Config</name>
   <description>CDI Configuration</description>
   
@@ -21,9 +21,8 @@
   
   <scm>
     <!-- url>...</url-->
-    <connection>scm:git:ssh://git@kasisoft.com:7999/cdi/configuration.git</connection>
-    <developerConnection>scm:git:ssh://git@kasisoft.com:7999/cdi/configuration.git</developerConnection>
-    <tag>configuration-0.1</tag>
+    <connection>scm:git:ssh://kasisoft.com:7999/cdi/configuration.git</connection>
+    <developerConnection>scm:git:ssh://kasisoft.com:7999/cdi/configuration.git</developerConnection>
   </scm>
   
   <issueManagement>
