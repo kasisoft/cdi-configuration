@@ -12,6 +12,37 @@
     <url>https://kasisoft.com</url>
   </organization>
   
+  <licenses>
+    <license>
+      <name>GNU LESSER GENERAL PUBLIC LICENSE</name>
+      <url>http://www.gnu.org/licenses/lgpl.html</url>
+    </license>
+  </licenses>
+  
+  <scm>
+    <!-- url>...</url-->
+    <connection>scm:git:ssh://git@kasisoft.com:7999/cdi/configuration.git</connection>
+    <developerConnection>scm:git:ssh://git@kasisoft.com:7999/cdi/configuration.git</developerConnection>
+  </scm>
+  
+  <issueManagement>
+    <system>jira</system>
+    <url>https://kasisoft.com/jira/browse/CDI</url>
+  </issueManagement>
+  
+  <ciManagement>
+    <system>Jenkins</system>
+    <url>https://kasisoft.com/ci/job/cdi.configuration/</url>
+  </ciManagement>
+  
+  <developers>
+    <developer>
+      <id>costamojan</id>
+      <name>Daniel Kasmeroglu</name>
+      <email>Daniel.Kasmeroglu@kasisoft.net</email>
+    </developer>
+  </developers>
+  
   <properties>
   
     <java.version>1.7</java.version>
