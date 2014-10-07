@@ -21,8 +21,8 @@
   
   <scm>
     <!-- url>...</url-->
-    <connection>scm:git:ssh://git@kasisoft.com:7999/cdi/configuration.git</connection>
-    <developerConnection>scm:git:ssh://git@kasisoft.com:7999/cdi/configuration.git</developerConnection>
+    <connection>scm:git:ssh://kasisoft.com:7999/cdi/configuration.git</connection>
+    <developerConnection>scm:git:ssh://kasisoft.com:7999/cdi/configuration.git</developerConnection>
   </scm>
   
   <issueManagement>
