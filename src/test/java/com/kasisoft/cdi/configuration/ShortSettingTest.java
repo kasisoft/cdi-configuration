@@ -33,7 +33,7 @@ public class ShortSettingTest extends AbstractEjbTest {
       // properties with customized names
       { ShortObj7.class.getSimpleName(), Short.valueOf( (short) 1 ) },
       // missing value
-      { Short8.class.getSimpleName(), null },
+      { ShortObj8.class.getSimpleName(), null },
     };
   }
   
@@ -121,7 +121,7 @@ public class ShortSettingTest extends AbstractEjbTest {
   } /* ENDCLASS */
 
   @Named @ManagedBean @ToString
-  public static class Short8 implements GetShort {
+  public static class ShortObj8 implements GetShort {
     
     @Inject @Setting(required = false)
     private Short    short_value_is_missing_and_no_default;
