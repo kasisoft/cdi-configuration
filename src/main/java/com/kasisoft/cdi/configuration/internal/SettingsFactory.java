@@ -29,11 +29,16 @@ public class SettingsFactory {
   @PostConstruct
   private void configure() {
     adapters = new Hashtable<>();
-    adapters.put( Boolean . class , new BooleanAdapter () );
-    adapters.put( Double  . class , new DoubleAdapter  () );
-    adapters.put( File    . class , new FileAdapter    ( true ) );
-    adapters.put( Integer . class , new IntegerAdapter () );
-    adapters.put( String  . class , new StringAdapter  () );
+    adapters.put( Boolean   . class , new BooleanAdapter () );
+    adapters.put( Double    . class , new DoubleAdapter  () );
+    adapters.put( Float     . class , new FloatAdapter   () );
+    adapters.put( File      . class , new FileAdapter    ( true ) );
+    adapters.put( Integer   . class , new IntegerAdapter () );
+    adapters.put( Short     . class , new ShortAdapter   () );
+    adapters.put( Byte      . class , new ByteAdapter    () );
+    adapters.put( Long      . class , new LongAdapter    () );
+    // adapters.put( Character . class , new CharAdapter    () );
+    adapters.put( String    . class , new StringAdapter  () );
   }
 
   @Produces @Setting
@@ -57,6 +62,16 @@ public class SettingsFactory {
   }
 
   @Produces @Setting
+  public Float getSettingAsFloat( InjectionPoint ip ) {
+    return getSetting( ip, Float.class );
+  }
+
+  @Produces @PrimitiveSetting
+  public float getSettingAsFloatPrimitive( InjectionPoint ip ) {
+    return getPrimitiveSetting( ip, Float.class );
+  }
+
+  @Produces @Setting
   public File getSettingAsFile( InjectionPoint ip ) {
     return getSetting( ip, File.class );
   }
@@ -74,6 +89,36 @@ public class SettingsFactory {
   @Produces @PrimitiveSetting
   public int getSettingAsIntegerPrimitive( InjectionPoint ip ) {
     return getPrimitiveSetting( ip, Integer.class);
+  }
+
+  @Produces @Setting
+  public Long getSettingAsLong( InjectionPoint ip ) {
+    return getSetting( ip, Long.class );
+  }
+
+  @Produces @PrimitiveSetting
+  public long getSettingAsLongPrimitive( InjectionPoint ip ) {
+    return getPrimitiveSetting( ip, Long.class);
+  }
+
+  @Produces @Setting
+  public Byte getSettingAsByte( InjectionPoint ip ) {
+    return getSetting( ip, Byte.class );
+  }
+
+  @Produces @PrimitiveSetting
+  public byte getSettingAsBytePrimitive( InjectionPoint ip ) {
+    return getPrimitiveSetting( ip, Byte.class);
+  }
+
+  @Produces @Setting
+  public Short getSettingAsShort( InjectionPoint ip ) {
+    return getSetting( ip, Short.class );
+  }
+
+  @Produces @PrimitiveSetting
+  public short getSettingAsShortPrimitive( InjectionPoint ip ) {
+    return getPrimitiveSetting( ip, Short.class);
   }
 
   @Produces @Setting
