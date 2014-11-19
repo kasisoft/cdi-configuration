@@ -98,9 +98,9 @@ public class ShortPrimitiveSettingTest extends AbstractEjbTest {
   public static class Short5 implements GetShort {
     
     @Inject @PrimitiveSetting(defaultValue = "1")
-    private short    short_value_6;
+    private short    short_value_5;
     
-    public short getValue() { return short_value_6; }
+    public short getValue() { return short_value_5; }
     
   } /* ENDCLASS */
   
@@ -108,9 +108,9 @@ public class ShortPrimitiveSettingTest extends AbstractEjbTest {
   public static class Short6 implements GetShort {
     
     @Inject @PrimitiveSetting(defaultValue = "-1")
-    private short    short_value_7;
+    private short    short_value_6;
     
-    public short getValue() { return short_value_7; }
+    public short getValue() { return short_value_6; }
     
   } /* ENDCLASS */
 
