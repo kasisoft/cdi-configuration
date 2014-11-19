@@ -60,6 +60,11 @@ public class SettingsFactory {
   public File getSettingAsFile( InjectionPoint ip ) {
     return getSetting( ip, File.class );
   }
+  
+  @Produces @DirSetting
+  public File getDirSetting( InjectionPoint ip ) {
+    return getFileSetting( ip );
+  }
 
   @Produces @Setting
   public Integer getSettingAsInteger( InjectionPoint ip ) {
@@ -74,6 +79,41 @@ public class SettingsFactory {
   @Produces @Setting
   public String getSettingAsString( InjectionPoint ip ) {
     return getSetting( ip, String.class );
+  }
+
+  private File getFileSetting( InjectionPoint ip ) {
+    DirSetting setting = ip.getAnnotated().getAnnotation( DirSetting.class );
+    File       result  = getSetting( ip, File.class, setting.value(), setting.defaultValue(), Boolean.valueOf( setting.required() ) );
+    if( result != null ) {
+      // check whether we should extend the file
+      String extension = StringFunctions.cleanup( setting.extension() );
+      if( extension != null ) {
+        result = extendDir( result, extension );
+      }
+    }
+    return result;
+  }
+  
+  private File extendDir( File dir, String extension ) {
+    if( ! dir.isDirectory() ) {
+      String message = base_is_not_a_dir.format( dir.getAbsolutePath() );
+      log.error( message );
+      throw new IllegalStateException( message );
+    }
+    File result = new File( dir, extension );
+    try {
+      result = result.getCanonicalFile();
+    } catch( IOException ex ) {
+      String message = canonical_failure.format( result.getPath(), ex.getLocalizedMessage() );
+      log.error( message );
+      throw new IllegalStateException();
+    }
+    if( ! result.mkdirs() ) {
+      String message = makedir_failure.format( result.getAbsolutePath() );
+      log.error( message );
+      throw new IllegalStateException();
+    }
+    return result;
   }
 
   private <T> T getSetting( InjectionPoint ip, Class<T> type ) {
