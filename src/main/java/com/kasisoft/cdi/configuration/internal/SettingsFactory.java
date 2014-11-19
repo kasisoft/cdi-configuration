@@ -153,7 +153,8 @@ public class SettingsFactory {
       log.error( message );
       throw new IllegalStateException();
     }
-    if( ! result.mkdirs() ) {
+    result.mkdirs();
+    if( ! result.isDirectory() ) {
       String message = makedir_failure.format( result.getAbsolutePath() );
       log.error( message );
       throw new IllegalStateException();
