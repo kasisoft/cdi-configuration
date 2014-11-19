@@ -3,8 +3,6 @@ package com.kasisoft.cdi.configuration;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-import com.kasisoft.cdi.testbasis.*;
-
 import org.testng.annotations.*;
 
 import javax.annotation.*;
@@ -16,7 +14,7 @@ import lombok.*;
  * @author daniel.kasmeroglu@kasisoft.net
  */
 @ManagedBean
-public class LongSettingTest extends AbstractEjbTest {
+public class LongSettingTest extends AbstractConfigurationTest {
 
   @DataProvider(name = "data")
   public Object[][] data() {
@@ -39,7 +37,7 @@ public class LongSettingTest extends AbstractEjbTest {
   
   @Test(dataProvider = "data")
   public void longs( String name, Long expected ) throws Exception {
-    GetLong getter = (GetLong) getContainer().getContext().lookup( "java:global/configuration/" + name );
+    GetLong getter = this.<GetLong>lookup( name );
     assertThat( getter.getValue(), is( expected ) );
   }
   

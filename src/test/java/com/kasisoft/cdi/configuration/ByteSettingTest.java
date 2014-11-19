@@ -3,8 +3,6 @@ package com.kasisoft.cdi.configuration;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-import com.kasisoft.cdi.testbasis.*;
-
 import org.testng.annotations.*;
 
 import javax.annotation.*;
@@ -16,7 +14,7 @@ import lombok.*;
  * @author daniel.kasmeroglu@kasisoft.net
  */
 @ManagedBean
-public class ByteSettingTest extends AbstractEjbTest {
+public class ByteSettingTest extends AbstractConfigurationTest {
 
   @DataProvider(name = "data")
   public Object[][] data() {
@@ -39,7 +37,7 @@ public class ByteSettingTest extends AbstractEjbTest {
   
   @Test(dataProvider = "data")
   public void bytes( String name, Byte expected ) throws Exception {
-    GetByte getter = (GetByte) getContainer().getContext().lookup( "java:global/configuration/" + name );
+    GetByte getter = this.<GetByte>lookup( name );
     assertThat( getter.getValue(), is( expected ) );
   }
   

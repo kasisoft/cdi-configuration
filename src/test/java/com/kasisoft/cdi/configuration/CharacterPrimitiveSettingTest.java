@@ -16,7 +16,7 @@
 // * @author daniel.kasmeroglu@kasisoft.net
 // */
 //@ManagedBean
-//public class CharacterPrimitiveSettingTest extends AbstractEjbTest {
+//public class CharacterPrimitiveSettingTest extends AbstractConfigurationTest {
 //
 //  @DataProvider(name = "data")
 //  public Object[][] data() {

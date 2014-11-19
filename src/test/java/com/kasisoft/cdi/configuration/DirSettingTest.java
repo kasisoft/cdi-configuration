@@ -3,7 +3,6 @@ package com.kasisoft.cdi.configuration;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-import com.kasisoft.cdi.testbasis.*;
 import com.kasisoft.libs.common.constants.*;
 
 import org.testng.annotations.*;
@@ -19,12 +18,12 @@ import lombok.*;
  * @author daniel.kasmeroglu@kasisoft.net
  */
 @ManagedBean
-public class DirSettingTest extends AbstractEjbTest {
+public class DirSettingTest extends AbstractConfigurationTest {
 
   private static File   basedir;
   
   @BeforeSuite
-  public void prepare() {
+  public static void prepare() {
     basedir = CommonProperty.TempDir.getDefaultValue();
   }
   
@@ -39,7 +38,7 @@ public class DirSettingTest extends AbstractEjbTest {
   
   @Test(dataProvider = "data")
   public void dirs( String name, File expected ) throws Exception {
-    GetDir getter = (GetDir) getContainer().getContext().lookup( "java:global/configuration/" + name );
+    GetDir getter = this.<GetDir>lookup( name );
     assertThat( getter.getValue(), is( expected ) );
   }
   

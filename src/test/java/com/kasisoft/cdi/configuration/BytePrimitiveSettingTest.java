@@ -3,8 +3,6 @@ package com.kasisoft.cdi.configuration;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-import com.kasisoft.cdi.testbasis.*;
-
 import org.testng.annotations.*;
 
 import javax.annotation.*;
@@ -16,7 +14,7 @@ import lombok.*;
  * @author daniel.kasmeroglu@kasisoft.net
  */
 @ManagedBean
-public class BytePrimitiveSettingTest extends AbstractEjbTest {
+public class BytePrimitiveSettingTest extends AbstractConfigurationTest {
 
   @DataProvider(name = "data")
   public Object[][] data() {
@@ -37,14 +35,14 @@ public class BytePrimitiveSettingTest extends AbstractEjbTest {
   
   @Test(dataProvider = "data")
   public void bytes( String name, byte expected ) throws Exception {
-    GetByte getter = (GetByte) getContainer().getContext().lookup( "java:global/configuration/" + name );
+    GetByte getter = this.<GetByte>lookup( name );
     assertThat( getter.getValue(), is( expected ) );
   }
   
   /** @todo [19-Nov-2014:KASI]   Investigate whether it makes sense that an UndeclaredThrowableException turns up. */
   @Test(expectedExceptions = Exception.class)
   public void missingValue() throws Exception {
-    getContainer().getContext().lookup( "java:global/configuration/Byte8" );
+    this.<GetByte>lookup( Byte8.class.getSimpleName() );
   }
   
   private static interface GetByte {

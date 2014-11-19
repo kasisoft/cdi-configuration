@@ -3,8 +3,6 @@ package com.kasisoft.cdi.configuration;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-import com.kasisoft.cdi.testbasis.*;
-
 import org.testng.annotations.*;
 
 import javax.annotation.*;
@@ -16,7 +14,7 @@ import lombok.*;
  * @author daniel.kasmeroglu@kasisoft.net
  */
 @ManagedBean
-public class BooleanSettingTest extends AbstractEjbTest {
+public class BooleanSettingTest extends AbstractConfigurationTest {
 
   @DataProvider(name = "booleansData")
   public Object[][] booleansData() {
@@ -43,7 +41,7 @@ public class BooleanSettingTest extends AbstractEjbTest {
   
   @Test(dataProvider = "booleansData")
   public void booleans( String name, Boolean expected ) throws Exception {
-    GetBoolean getter = (GetBoolean) getContainer().getContext().lookup( "java:global/configuration/" + name );
+    GetBoolean getter = this.<GetBoolean>lookup( name );
     assertThat( getter.getValue(), is( expected ) );
   }
   

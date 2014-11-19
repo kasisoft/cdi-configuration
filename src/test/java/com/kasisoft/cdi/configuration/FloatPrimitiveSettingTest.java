@@ -3,8 +3,6 @@ package com.kasisoft.cdi.configuration;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-import com.kasisoft.cdi.testbasis.*;
-
 import org.testng.annotations.*;
 
 import javax.annotation.*;
@@ -16,7 +14,7 @@ import lombok.*;
  * @author daniel.kasmeroglu@kasisoft.net
  */
 @ManagedBean
-public class FloatPrimitiveSettingTest extends AbstractEjbTest {
+public class FloatPrimitiveSettingTest extends AbstractConfigurationTest {
 
   @DataProvider(name = "data")
   public Object[][] data() {
@@ -39,14 +37,14 @@ public class FloatPrimitiveSettingTest extends AbstractEjbTest {
   
   @Test(dataProvider = "data")
   public void floats( String name, float expected ) throws Exception {
-    GetFloat getter = (GetFloat) getContainer().getContext().lookup( "java:global/configuration/" + name );
+    GetFloat getter = this.<GetFloat>lookup( name );
     assertThat( getter.getValue(), is( expected ) );
   }
   
   /** @todo [19-Nov-2014:KASI]   Investigate whether it makes sense that an UndeclaredThrowableException turns up. */
   @Test(expectedExceptions = Exception.class)
   public void missingValue() throws Exception {
-    getContainer().getContext().lookup( "java:global/configuration/Float9" );
+    this.<GetFloat>lookup( Float9.class.getSimpleName() );
   }
   
   private static interface GetFloat {
