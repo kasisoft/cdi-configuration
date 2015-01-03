@@ -12,7 +12,11 @@ import javax.enterprise.inject.spi.*;
 
 import java.util.*;
 
+import java.net.*;
+
 import java.io.*;
+
+import java.nio.file.*;
 
 import lombok.extern.slf4j.*;
 
@@ -75,10 +79,46 @@ public class SettingsFactory {
   public File getSettingAsFile( InjectionPoint ip ) {
     return getSetting( ip, File.class );
   }
-  
+
+  @Produces @Setting
+  public URI getSettingAsURI( InjectionPoint ip ) {
+    File file = getSettingAsFile( ip );
+    if( file != null ) {
+      return file.toURI();
+    }
+    return null;
+  }
+
+  @Produces @Setting
+  public Path getSettingAsPath( InjectionPoint ip ) {
+    URI uri = getSettingAsURI( ip );
+    if( uri != null ) {
+      return Paths.get( uri );
+    }
+    return null;
+  }
+
   @Produces @DirSetting
-  public File getDirSetting( InjectionPoint ip ) {
+  public File getDirSettingAsFile( InjectionPoint ip ) {
     return getFileSetting( ip );
+  }
+
+  @Produces @DirSetting
+  public URI getDirSettingAsURI( InjectionPoint ip ) {
+    File file = getDirSettingAsFile( ip );
+    if( file != null ) {
+      return file.toURI();
+    }
+    return null;
+  }
+
+  @Produces @DirSetting
+  public Path getDirSettingAsPath( InjectionPoint ip ) {
+    URI uri = getDirSettingAsURI( ip );
+    if( uri != null ) {
+      return Paths.get( uri );
+    }
+    return null;
   }
 
   @Produces @Setting
