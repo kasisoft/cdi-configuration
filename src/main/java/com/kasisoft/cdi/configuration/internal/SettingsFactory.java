@@ -181,6 +181,9 @@ public class SettingsFactory {
   
   private File extendDir( File dir, String extension ) {
     if( ! dir.isDirectory() ) {
+      dir.mkdirs();
+    }
+    if( ! dir.isDirectory() ) {
       String message = base_is_not_a_dir.format( dir.getAbsolutePath() );
       log.error( message );
       throw new IllegalStateException( message );
