@@ -18,6 +18,8 @@ import java.io.*;
 
 import java.nio.file.*;
 
+import lombok.*;
+import lombok.experimental.*;
 import lombok.extern.slf4j.*;
 
 /**
@@ -25,10 +27,10 @@ import lombok.extern.slf4j.*;
  * 
  * @author daniel.kasmeroglu@kasisoft.net
  */
-@Slf4j
+@Slf4j @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SettingsFactory {
 
-  private Map<Class<?>,TypeAdapter<String,?>>   adapters;
+  Map<Class<?>,TypeAdapter<String,?>>   adapters;
 
   @PostConstruct
   private void configure() {

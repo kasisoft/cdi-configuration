@@ -11,12 +11,16 @@ import java.net.*;
 
 import java.io.*;
 
+import lombok.*;
+import lombok.experimental.*;
+
 /**
  * @author daniel.kasmeroglu@kasisoft.net
  */
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class AbstractConfigurationTest extends AbstractEjbTest {
 
-  private static String    projectdirname = null;
+  static String    projectdirname = null;
   
   @SuppressWarnings("null")
   @BeforeSuite

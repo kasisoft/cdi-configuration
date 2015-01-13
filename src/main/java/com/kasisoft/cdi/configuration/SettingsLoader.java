@@ -9,6 +9,7 @@ import java.util.*;
 import java.io.*;
 
 import lombok.*;
+import lombok.experimental.*;
 import lombok.extern.slf4j.*;
 
 /**
@@ -18,12 +19,12 @@ import lombok.extern.slf4j.*;
  * 
  * @author daniel.kasmeroglu@kasisoft.net
  */
-@Slf4j
+@Slf4j @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SettingsLoader {
 
-  private static final String NAME_SETTINGS = "settings.properties";
+  static final String NAME_SETTINGS = "settings.properties";
 
-  private static SettingsLoader   instance = null;
+  static SettingsLoader   instance = null;
 
   static {
     instance = new SettingsLoader();
@@ -39,7 +40,7 @@ public class SettingsLoader {
     return instance;
   }
   
-  private PropertyResolver   resolver;
+  PropertyResolver   resolver;
 
   private SettingsLoader() {
     resolver = new PropertyResolver( Thread.currentThread().getContextClassLoader() );
