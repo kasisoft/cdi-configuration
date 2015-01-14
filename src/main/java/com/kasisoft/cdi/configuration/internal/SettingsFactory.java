@@ -48,9 +48,9 @@ public class SettingsFactory {
     adapters.put( String    . class , new StringAdapter  () );
     adapters.put( Version   . class , new VersionAdapter ( true ) );
     adapters.put( Color     . class , new ColorAdapter   () );
+    adapters.put( URI       . class , new URIAdapter     () );
     // adapters.put( Character  . class , new CharAdapter         () );
     // adapters.put( Enum[]     . class , new EnumerationAdapter  () );
-    // adapters.put( URI        . class , new URIAdapter          () );
     // adapters.put( URL        . class , new URLAdapter          () );
   }
 
@@ -99,13 +99,18 @@ public class SettingsFactory {
     return getSetting( ip, File.class );
   }
 
+//  @Produces @Setting
+//  public URL getSettingAsURL( InjectionPoint ip ) {
+//    File file = getSettingAsFile( ip );
+//    if( file != null ) {
+//      return file.toURL();
+//    }
+//    return null;
+//  }
+
   @Produces @Setting
   public URI getSettingAsURI( InjectionPoint ip ) {
-    File file = getSettingAsFile( ip );
-    if( file != null ) {
-      return file.toURI();
-    }
-    return null;
+    return getSetting( ip, URI.class );
   }
 
   @Produces @Setting
