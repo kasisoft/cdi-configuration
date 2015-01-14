@@ -43,8 +43,19 @@ public class SettingsFactory {
     adapters.put( Short     . class , new ShortAdapter   () );
     adapters.put( Byte      . class , new ByteAdapter    () );
     adapters.put( Long      . class , new LongAdapter    () );
-    // adapters.put( Character . class , new CharAdapter    () );
     adapters.put( String    . class , new StringAdapter  () );
+    adapters.put( Version   . class , new VersionAdapter ( true ) );
+    // adapters.put( Character  . class , new CharAdapter         () );
+    // adapters.put( Color      . class , new ColorAdapter        () );
+    // adapters.put( Date       . class , new DateAdapter         () );
+    // adapters.put( Color      . class , new EnumerationAdapter  () );
+    // adapters.put( URI        . class , new URIAdapter          () );
+    // adapters.put( URL        . class , new URLAdapter          () );
+  }
+
+  @Produces @Setting
+  public Version getSettingAsVersion( InjectionPoint ip ) {
+    return getSetting( ip, Version.class );
   }
 
   @Produces @Setting
