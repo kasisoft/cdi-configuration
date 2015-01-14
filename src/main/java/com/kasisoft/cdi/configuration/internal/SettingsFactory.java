@@ -14,6 +14,8 @@ import java.util.*;
 
 import java.net.*;
 
+import java.awt.*;
+
 import java.io.*;
 
 import java.nio.file.*;
@@ -45,10 +47,9 @@ public class SettingsFactory {
     adapters.put( Long      . class , new LongAdapter    () );
     adapters.put( String    . class , new StringAdapter  () );
     adapters.put( Version   . class , new VersionAdapter ( true ) );
+    adapters.put( Color     . class , new ColorAdapter   () );
     // adapters.put( Character  . class , new CharAdapter         () );
-    // adapters.put( Color      . class , new ColorAdapter        () );
-    // adapters.put( Date       . class , new DateAdapter         () );
-    // adapters.put( Color      . class , new EnumerationAdapter  () );
+    // adapters.put( Enum[]     . class , new EnumerationAdapter  () );
     // adapters.put( URI        . class , new URIAdapter          () );
     // adapters.put( URL        . class , new URLAdapter          () );
   }
@@ -56,6 +57,11 @@ public class SettingsFactory {
   @Produces @Setting
   public Version getSettingAsVersion( InjectionPoint ip ) {
     return getSetting( ip, Version.class );
+  }
+
+  @Produces @Setting
+  public Color getSettingAsColor( InjectionPoint ip ) {
+    return getSetting( ip, Color.class );
   }
 
   @Produces @Setting
