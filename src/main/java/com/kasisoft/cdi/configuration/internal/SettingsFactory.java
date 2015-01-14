@@ -50,8 +50,6 @@ public class SettingsFactory {
     adapters.put( Color     . class , new ColorAdapter   () );
     adapters.put( URI       . class , new URIAdapter     () );
     adapters.put( URL       . class , new URLAdapter     () );
-    // adapters.put( Character  . class , new CharAdapter         () );
-    // adapters.put( Enum[]     . class , new EnumerationAdapter  () );
   }
 
   @Produces @Setting
