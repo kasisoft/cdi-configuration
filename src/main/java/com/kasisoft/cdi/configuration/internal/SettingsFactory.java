@@ -49,9 +49,14 @@ public class SettingsFactory {
     adapters.put( Version   . class , new VersionAdapter ( true ) );
     adapters.put( Color     . class , new ColorAdapter   () );
     adapters.put( URI       . class , new URIAdapter     () );
+    adapters.put( URL       . class , new URLAdapter     () );
     // adapters.put( Character  . class , new CharAdapter         () );
     // adapters.put( Enum[]     . class , new EnumerationAdapter  () );
-    // adapters.put( URL        . class , new URLAdapter          () );
+  }
+
+  @Produces @Setting
+  public URL getSettingAsURL( InjectionPoint ip ) {
+    return getSetting( ip, URL.class );
   }
 
   @Produces @Setting
