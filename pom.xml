@@ -64,6 +64,7 @@
     
     <!-- versioning (maven plugins) -->
     <plugin-version-cobertura-maven>2.6</plugin-version-cobertura-maven>
+    <plugin-version-maven-bundle>2.5.4</plugin-version-maven-bundle>
     <plugin-version-maven-compiler>3.1</plugin-version-maven-compiler>
     <plugin-version-maven-eclipse>2.9</plugin-version-maven-eclipse>
     <plugin-version-maven-jar>2.5</plugin-version-maven-jar>
@@ -197,7 +198,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>${plugin-version-maven-jar}</version>
+        <configuration>
+          <archive>
+            <addMavenDescriptor>false</addMavenDescriptor>
+          </archive>
+          <useDefaultManifestFile>true</useDefaultManifestFile>
+        </configuration>
       </plugin>
 
       <plugin>
@@ -240,6 +246,27 @@
         <artifactId>maven-eclipse-plugin</artifactId>
         <version>${plugin-version-maven-eclipse}</version>
       </plugin>
+      
+      <plugin> 
+         <groupId>org.apache.felix</groupId> 
+         <artifactId>maven-bundle-plugin</artifactId>
+         <extensions>true</extensions> 
+         <configuration> 
+           <instructions> 
+             <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName> 
+             <Bundle-Version>${project.version}</Bundle-Version> 
+           </instructions> 
+         </configuration> 
+        <executions>
+          <execution>
+            <id>generate-manifest</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>manifest</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin> 
       
     </plugins>
 
