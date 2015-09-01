@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.kasisoft.cdi</groupId>
   <artifactId>configuration</artifactId>
-  <version>0.4-SNAPSHOT</version>
+  <version>0.3</version>
   <name>CDI Config</name>
   <description>CDI Configuration</description>
   
@@ -68,6 +68,7 @@
     <plugin-version-maven-compiler>3.1</plugin-version-maven-compiler>
     <plugin-version-maven-eclipse>2.9</plugin-version-maven-eclipse>
     <plugin-version-maven-jar>2.5</plugin-version-maven-jar>
+    <plugin-version-maven-javadoc>2.10.3</plugin-version-maven-javadoc>
     <plugin-version-maven-resources>2.6</plugin-version-maven-resources>
     <plugin-version-maven-source>2.3</plugin-version-maven-source>
     
@@ -187,6 +188,15 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${plugin-version-maven-javadoc}</version>
+        <configuration>
+          <failOnError>false</failOnError>
+        </configuration>
       </plugin>
 
       <plugin>
