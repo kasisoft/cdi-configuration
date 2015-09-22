@@ -22,7 +22,6 @@ public class AbstractConfigurationTest extends AbstractEjbTest {
 
   static String    projectdirname = null;
   
-  @SuppressWarnings("null")
   @BeforeSuite
   public static void determineConfiguration() throws Exception {
     URL  url  = AbstractConfigurationTest.class.getResource( "AbstractConfigurationTest.class" );
