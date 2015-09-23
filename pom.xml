@@ -10,7 +10,7 @@
   </parent>
 
   <artifactId>configuration</artifactId>
-  <version>0.6-SNAPSHOT</version>
+  <version>0.6</version>
     
   <name>CDI :: Configuration</name>
   <description>CDI :: Configuration</description>
@@ -31,6 +31,7 @@
     <!-- url>...</url-->
     <connection>scm:git:ssh://kasisoft.com:7999/cdi/configuration.git</connection>
     <developerConnection>scm:git:ssh://kasisoft.com:7999/cdi/configuration.git</developerConnection>
+    <tag>configuration-0.6</tag>
   </scm>
 
   <issueManagement>
