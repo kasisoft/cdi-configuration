@@ -6,11 +6,10 @@
   <parent>
     <groupId>com.kasisoft.cdi</groupId>
     <artifactId>parent</artifactId>
-    <version>0.7</version>
+    <version>0.8-SNAPSHOT</version>
   </parent>
 
   <artifactId>configuration</artifactId>
-  <version>0.8-SNAPSHOT</version>
     
   <name>CDI :: Configuration</name>
   <description>CDI :: Configuration</description>
@@ -53,7 +52,7 @@
   </developers>
 
   <properties>
-    <version-testbasis>0.7</version-testbasis>
+    <version-testbasis>${project.version}</version-testbasis>
   </properties>
 
   <dependencyManagement>
