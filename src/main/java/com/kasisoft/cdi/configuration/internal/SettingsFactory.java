@@ -3,7 +3,9 @@ package com.kasisoft.cdi.configuration.internal;
 import static com.kasisoft.cdi.configuration.internal.Messages.*;
 
 import com.kasisoft.cdi.configuration.*;
-import com.kasisoft.libs.common.util.*;
+import com.kasisoft.libs.common.model.*;
+import com.kasisoft.libs.common.text.*;
+
 import com.kasisoft.libs.common.xml.adapters.*;
 
 import javax.annotation.*;

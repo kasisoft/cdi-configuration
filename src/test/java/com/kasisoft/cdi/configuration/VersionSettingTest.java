@@ -3,7 +3,7 @@ package com.kasisoft.cdi.configuration;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-import com.kasisoft.libs.common.util.*;
+import com.kasisoft.libs.common.model.*;
 
 import org.testng.annotations.*;
 
