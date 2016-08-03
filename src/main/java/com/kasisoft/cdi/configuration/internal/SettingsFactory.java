@@ -122,7 +122,12 @@ public class SettingsFactory {
   public Path getSettingAsPath( InjectionPoint ip ) {
     URI uri = getSettingAsURI( ip );
     if( uri != null ) {
-      return Paths.get( uri );
+      String scheme = StringFunctions.cleanup( uri.getScheme() );
+      if( scheme == null ) {
+        return Paths.get( uri.toString() );
+      } else {
+        return Paths.get( uri );
+      }
     }
     return null;
   }
