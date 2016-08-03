@@ -6,6 +6,8 @@ import com.kasisoft.libs.common.util.*;
 
 import java.util.*;
 
+import java.nio.file.*;
+
 import java.io.*;
 
 import lombok.*;
@@ -46,11 +48,23 @@ public class SettingsLoader {
     resolver = new PropertyResolver( Thread.currentThread().getContextClassLoader() );
     resolver.withSystemSubstitutions();
   }
-  
-  public void load( @NonNull String propfile ) throws IOException {
 
-    resolver.load( propfile );
+  public void load( @NonNull Map<String, String> properties ) throws IOException {
+    resolver.load( properties );
+    logProperties();
+  }
+  
+  public void load( @NonNull Path path ) throws IOException {
+    resolver.load( path.toFile() );
+    logProperties();
+  }
     
+  public void load( @NonNull String propfile ) throws IOException {
+    resolver.load( propfile );
+    logProperties();
+  }
+
+  private void logProperties() {
     if( log.isDebugEnabled() ) {
       
       String[] keys = resolver.getPropertyNames();
@@ -61,7 +75,6 @@ public class SettingsLoader {
       }
       
     }
-    
   }
 
   public String getValue( @NonNull String key ) {
