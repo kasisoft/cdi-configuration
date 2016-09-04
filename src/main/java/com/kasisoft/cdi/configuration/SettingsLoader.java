@@ -2,7 +2,7 @@ package com.kasisoft.cdi.configuration;
 
 import static com.kasisoft.cdi.configuration.internal.Messages.*;
 
-import com.kasisoft.libs.common.util.*;
+import com.kasisoft.libs.common.config.*;
 
 import java.util.*;
 
