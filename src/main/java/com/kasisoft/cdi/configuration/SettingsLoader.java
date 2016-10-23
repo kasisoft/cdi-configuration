@@ -49,12 +49,12 @@ public class SettingsLoader {
     resolver.withSystemSubstitutions();
   }
 
-  public void load( @NonNull Map<String, String> properties ) throws IOException {
+  public void load( @NonNull Map<String, String> properties ) {
     resolver.load( properties );
     logProperties();
   }
   
-  public void load( @NonNull Path path ) throws IOException {
+  public void load( @NonNull Path path ) {
     resolver.load( path.toFile() );
     logProperties();
   }

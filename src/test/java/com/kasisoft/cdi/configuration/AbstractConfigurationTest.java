@@ -2,6 +2,7 @@ package com.kasisoft.cdi.configuration;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
+import static org.testng.Assert.*;
 
 import com.kasisoft.cdi.testbasis.*;
 
@@ -11,8 +12,9 @@ import java.net.*;
 
 import java.io.*;
 
-import lombok.*;
 import lombok.experimental.*;
+
+import lombok.*;
 
 /**
  * @author daniel.kasmeroglu@kasisoft.net
@@ -33,7 +35,7 @@ public class AbstractConfigurationTest extends AbstractEjbTest {
       }
       file = file.getParentFile();
     }
-    assertThat( file, is( notNullValue() ) );
+    assertNotNull( file );
     projectdirname = file.getName();
   }
   
