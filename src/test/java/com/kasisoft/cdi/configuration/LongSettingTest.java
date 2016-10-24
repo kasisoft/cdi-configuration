@@ -19,25 +19,31 @@ public class LongSettingTest extends AbstractConfigurationTest {
   @DataProvider(name = "data")
   public Object[][] data() {
     return new Object[][] {
+      
       // properties are set to: 1, -1
-      { LongObj1.class.getSimpleName(), Long.valueOf(1L) },
-      { LongObj2.class.getSimpleName(), Long.valueOf(-1L) },
+      { LongObj1.class, Long.valueOf(1L) },
+      { LongObj2.class, Long.valueOf(-1L) },
+      
       // properties are set to: MAX, -MAX
-      { LongObj3.class.getSimpleName(), Long.valueOf( Long.MAX_VALUE ) },
-      { LongObj4.class.getSimpleName(), Long.valueOf( Long.MIN_VALUE ) },
+      { LongObj3.class, Long.valueOf( Long.MAX_VALUE ) },
+      { LongObj4.class, Long.valueOf( Long.MIN_VALUE ) },
+      
       // properties aren't set. defaults are set to: 1, -1
-      { LongObj5.class.getSimpleName(), Long.valueOf(1L) },
-      { LongObj6.class.getSimpleName(), Long.valueOf(-1L) },
+      { LongObj5.class, Long.valueOf(1L) },
+      { LongObj6.class, Long.valueOf(-1L) },
+      
       // properties with customized names
-      { LongObj7.class.getSimpleName(), Long.valueOf(1L) },
+      { LongObj7.class, Long.valueOf(1L) },
+      
       // missing value
-      { LongObj8.class.getSimpleName(), null },
+      { LongObj8.class, null },
+      
     };
   }
   
   @Test(dataProvider = "data")
-  public void longs( String name, Long expected ) throws Exception {
-    GetLong getter = this.<GetLong>lookup( name );
+  public void longs( Class<GetLong> clazz, Long expected ) throws Exception {
+    GetLong getter = this.<GetLong>lookup( clazz );
     assertThat( getter.getValue(), is( expected ) );
   }
   

@@ -21,20 +21,25 @@ public class URISettingTest extends AbstractConfigurationTest {
   @DataProvider(name = "data")
   public Object[][] data() throws URISyntaxException {
     return new Object[][] {
-      { URIObj1.class.getSimpleName(), new URI( "file:/E:/output.log" ) },
-      { URIObj2.class.getSimpleName(), new URI( "http://www.amiga-news.de" ) },
+      
+      { URIObj1.class, new URI( "file:/E:/output.log" ) },
+      { URIObj2.class, new URI( "http://www.amiga-news.de" ) },
+      
       // missing value
-      { URIObj3.class.getSimpleName(), null },
+      { URIObj3.class, null },
+      
       // customized name
-      { URIObj4.class.getSimpleName(), new URI( "http://blog.gwup.net" ) },
+      { URIObj4.class, new URI( "http://blog.gwup.net" ) },
+      
       // default value
-      { URIObj5.class.getSimpleName(), new URI( "http://www.scienceblogs.org" ) },
+      { URIObj5.class, new URI( "http://www.scienceblogs.org" ) },
+      
     };
   }
   
   @Test(dataProvider = "data")
-  public void uris( String name, URI expected ) throws Exception {
-    GetURI getter = this.<GetURI>lookup( name );
+  public void uris( Class<GetURI> clazz, URI expected ) throws Exception {
+    GetURI getter = this.<GetURI>lookup( clazz );
     assertThat( getter.getValue(), is( expected ) );
   }
   

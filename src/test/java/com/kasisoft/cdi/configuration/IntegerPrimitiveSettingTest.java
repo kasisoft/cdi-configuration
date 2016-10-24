@@ -19,30 +19,35 @@ public class IntegerPrimitiveSettingTest extends AbstractConfigurationTest {
   @DataProvider(name = "data")
   public Object[][] data() {
     return new Object[][] {
+      
       // properties are set to: 1, -1
-      { Int1.class.getSimpleName(), 1 },
-      { Int2.class.getSimpleName(), -1  },
+      { Int1.class, 1 },
+      { Int2.class, -1  },
+      
       // properties are set to: MAX, -MAX
-      { Int3.class.getSimpleName(), Integer.MAX_VALUE },
-      { Int4.class.getSimpleName(), Integer.MIN_VALUE },
+      { Int3.class, Integer.MAX_VALUE },
+      { Int4.class, Integer.MIN_VALUE },
+      
       // properties aren't set. defaults are set to: 1, -1
-      { Int5.class.getSimpleName(), 1  },
-      { Int6.class.getSimpleName(), -1 },
+      { Int5.class, 1  },
+      { Int6.class, -1 },
+      
       // properties with customized names
-      { Int7.class.getSimpleName(), 1 },
+      { Int7.class, 1 },
+      
     };
   }
   
   @Test(dataProvider = "data")
-  public void ints( String name, int expected ) throws Exception {
-    GetInt getter = this.<GetInt>lookup( name );
+  public void ints( Class<GetInt> clazz, int expected ) throws Exception {
+    GetInt getter = this.<GetInt>lookup( clazz );
     assertThat( getter.getValue(), is( expected ) );
   }
   
   /** @todo [19-Nov-2014:KASI]   Investigate whether it makes sense that an UndeclaredThrowableException turns up. */
   @Test(expectedExceptions = Exception.class)
   public void missingValue() throws Exception {
-    this.<GetInt>lookup( Int8.class.getSimpleName() );
+    this.<Int8>lookup( Int8.class );
   }
   
   private static interface GetInt {

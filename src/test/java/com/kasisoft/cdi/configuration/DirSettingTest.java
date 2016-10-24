@@ -31,14 +31,14 @@ public class DirSettingTest extends AbstractConfigurationTest {
   @DataProvider(name = "data")
   public Object[][] data() {
     return new Object[][] {
-      { Dir1.class.getSimpleName(), basedir },
-      { Dir2.class.getSimpleName(), new File( basedir, "bibo" ) },
+      { Dir1.class, basedir },
+      { Dir2.class, new File( basedir, "bibo" ) },
     };
   }
   
   @Test(dataProvider = "data")
-  public void dirs( String name, File expected ) throws Exception {
-    GetDir getter = this.<GetDir>lookup( name );
+  public void dirs( Class<GetDir> clazz, File expected ) throws Exception {
+    GetDir getter = this.<GetDir>lookup( clazz );
     assertThat( getter.getValue(), is( expected ) );
   }
   

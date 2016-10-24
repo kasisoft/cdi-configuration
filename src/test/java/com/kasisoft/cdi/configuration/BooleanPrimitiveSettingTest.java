@@ -19,34 +19,40 @@ public class BooleanPrimitiveSettingTest extends AbstractConfigurationTest {
   @DataProvider(name = "booleansData")
   public Object[][] booleansData() {
     return new Object[][] {
+      
       // properties are set to: false, true
-      { Boolean1.class.getSimpleName(), false },
-      { Boolean2.class.getSimpleName(), true  },
+      { Boolean1.class, false },
+      { Boolean2.class, true  },
+      
       // properties are set to: no, yes
-      { Boolean3.class.getSimpleName(), false },
-      { Boolean4.class.getSimpleName(), true  },
+      { Boolean3.class, false },
+      { Boolean4.class, true  },
+      
       // properties aren't set. defaults are set to: false, true
-      { Boolean5.class.getSimpleName(), false },
-      { Boolean6.class.getSimpleName(), true  },
+      { Boolean5.class, false },
+      { Boolean6.class, true  },
+      
       // properties aren't set. defaults are set to: no, yes
-      { Boolean7.class.getSimpleName(), false },
-      { Boolean8.class.getSimpleName(), true  },
+      { Boolean7.class, false },
+      { Boolean8.class, true  },
+      
       // properties with customized names
-      { Boolean9.class.getSimpleName(), false },
-      { Boolean10.class.getSimpleName(), true  },
+      { Boolean9.class, false },
+      { Boolean10.class, true  },
+      
     };
   }
   
   @Test(dataProvider = "booleansData")
-  public void booleans( String name, boolean expected ) throws Exception {
-    GetBoolean getter = this.<GetBoolean>lookup( name );
+  public void booleans( Class<GetBoolean> clazz, boolean expected ) throws Exception {
+    GetBoolean getter = this.<GetBoolean>lookup( clazz );
     assertThat( getter.getValue(), is( expected ) );
   }
   
   /** @todo [19-Nov-2014:KASI]   Investigate whether it makes sense that an UndeclaredThrowableException turns up. */
   @Test(expectedExceptions = Exception.class)
   public void missingValue() throws Exception {
-    this.<GetBoolean>lookup( Boolean11.class.getSimpleName() );
+    this.<Boolean11>lookup( Boolean11.class );
   }
   
   private static interface GetBoolean {

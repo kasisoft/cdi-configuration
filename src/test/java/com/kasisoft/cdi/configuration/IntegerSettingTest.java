@@ -19,25 +19,31 @@ public class IntegerSettingTest extends AbstractConfigurationTest {
   @DataProvider(name = "data")
   public Object[][] data() {
     return new Object[][] {
+      
       // properties are set to: 1, -1
-      { IntObj1.class.getSimpleName(), Integer.valueOf(1) },
-      { IntObj2.class.getSimpleName(), Integer.valueOf(-1)  },
+      { IntObj1.class, Integer.valueOf(1) },
+      { IntObj2.class, Integer.valueOf(-1)  },
+      
       // properties are set to: MAX, -MAX
-      { IntObj3.class.getSimpleName(), Integer.valueOf( Integer.MAX_VALUE ) },
-      { IntObj4.class.getSimpleName(), Integer.valueOf( Integer.MIN_VALUE ) },
+      { IntObj3.class, Integer.valueOf( Integer.MAX_VALUE ) },
+      { IntObj4.class, Integer.valueOf( Integer.MIN_VALUE ) },
+      
       // properties aren't set. defaults are set to: 1, -1
-      { IntObj5.class.getSimpleName(), Integer.valueOf(1) },
-      { IntObj6.class.getSimpleName(), Integer.valueOf(-1) },
+      { IntObj5.class, Integer.valueOf(1) },
+      { IntObj6.class, Integer.valueOf(-1) },
+      
       // properties with customized names
-      { IntObj7.class.getSimpleName(), Integer.valueOf(1) },
+      { IntObj7.class, Integer.valueOf(1) },
+      
       // missing value
-      { IntObj8.class.getSimpleName(), null },
+      { IntObj8.class, null },
+      
     };
   }
   
   @Test(dataProvider = "data")
-  public void ints( String name, Integer expected ) throws Exception {
-    GetInt getter = this.<GetInt>lookup( name );
+  public void ints( Class<GetInt> clazz, Integer expected ) throws Exception {
+    GetInt getter = this.<GetInt>lookup( clazz );
     assertThat( getter.getValue(), is( expected ) );
   }
   

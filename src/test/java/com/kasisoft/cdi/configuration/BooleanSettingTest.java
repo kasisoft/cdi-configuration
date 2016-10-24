@@ -19,29 +19,36 @@ public class BooleanSettingTest extends AbstractConfigurationTest {
   @DataProvider(name = "booleansData")
   public Object[][] booleansData() {
     return new Object[][] {
+      
       // properties are set to: false, true
-      { BooleanObj1.class.getSimpleName(), Boolean.FALSE },
-      { BooleanObj2.class.getSimpleName(), Boolean.TRUE  },
+      { BooleanObj1.class, Boolean.FALSE },
+      { BooleanObj2.class, Boolean.TRUE  },
+      
       // properties are set to: no, yes
-      { BooleanObj3.class.getSimpleName(), Boolean.FALSE },
-      { BooleanObj4.class.getSimpleName(), Boolean.TRUE  },
+      { BooleanObj3.class, Boolean.FALSE },
+      { BooleanObj4.class, Boolean.TRUE  },
+      
       // properties aren't set. defaults are set to: false, true
-      { BooleanObj5.class.getSimpleName(), Boolean.FALSE },
-      { BooleanObj6.class.getSimpleName(), Boolean.TRUE  },
+      { BooleanObj5.class, Boolean.FALSE },
+      { BooleanObj6.class, Boolean.TRUE  },
+      
       // properties aren't set. defaults are set to: no, yes
-      { BooleanObj7.class.getSimpleName(), Boolean.FALSE },
-      { BooleanObj8.class.getSimpleName(), Boolean.TRUE  },
+      { BooleanObj7.class, Boolean.FALSE },
+      { BooleanObj8.class, Boolean.TRUE  },
+      
       // properties with customized names
-      { BooleanObj9.class.getSimpleName(), Boolean.FALSE },
-      { BooleanObj10.class.getSimpleName(), Boolean.TRUE  },
+      { BooleanObj9.class, Boolean.FALSE },
+      { BooleanObj10.class, Boolean.TRUE  },
+      
       // missing value
-      { BooleanObj11.class.getSimpleName(), null },
+      { BooleanObj11.class, null },
+      
     };
   }
   
   @Test(dataProvider = "booleansData")
-  public void booleans( String name, Boolean expected ) throws Exception {
-    GetBoolean getter = this.<GetBoolean>lookup( name );
+  public void booleans( Class<GetBoolean> clazz, Boolean expected ) throws Exception {
+    GetBoolean getter = this.<GetBoolean>lookup( clazz );
     assertThat( getter.getValue(), is( expected ) );
   }
   

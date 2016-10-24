@@ -19,30 +19,35 @@ public class LongPrimitiveSettingTest extends AbstractConfigurationTest {
   @DataProvider(name = "data")
   public Object[][] data() {
     return new Object[][] {
+      
       // properties are set to: 1, -1
-      { Long1.class.getSimpleName(), 1L },
-      { Long2.class.getSimpleName(), -1L  },
+      { Long1.class, 1L },
+      { Long2.class, -1L  },
+      
       // properties are set to: MAX, -MAX
-      { Long3.class.getSimpleName(), Long.MAX_VALUE },
-      { Long4.class.getSimpleName(), Long.MIN_VALUE },
+      { Long3.class, Long.MAX_VALUE },
+      { Long4.class, Long.MIN_VALUE },
+      
       // properties aren't set. defaults are set to: 1, -1
-      { Long5.class.getSimpleName(), 1L  },
-      { Long6.class.getSimpleName(), -1L },
+      { Long5.class, 1L  },
+      { Long6.class, -1L },
+      
       // properties with customized names
-      { Long7.class.getSimpleName(), 1L },
+      { Long7.class, 1L },
+      
     };
   }
   
   @Test(dataProvider = "data")
-  public void longs( String name, long expected ) throws Exception {
-    GetLong getter = this.<GetLong>lookup( name );
+  public void longs( Class<GetLong> clazz, long expected ) throws Exception {
+    GetLong getter = this.<GetLong>lookup( clazz );
     assertThat( getter.getValue(), is( expected ) );
   }
   
   /** @todo [19-Nov-2014:KASI]   Investigate whether it makes sense that an UndeclaredThrowableException turns up. */
   @Test(expectedExceptions = Exception.class)
   public void missingValue() throws Exception {
-    this.<GetLong>lookup( Long8.class.getSimpleName() );
+    this.<Long8>lookup( Long8.class );
   }
   
   private static interface GetLong {

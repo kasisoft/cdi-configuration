@@ -19,27 +19,34 @@ public class DoubleSettingTest extends AbstractConfigurationTest {
   @DataProvider(name = "data")
   public Object[][] data() {
     return new Object[][] {
+      
       // properties are set to: 1.0, -1.0
-      { DoubleObj1.class.getSimpleName(), Double.valueOf( 1.0 ) },
-      { DoubleObj2.class.getSimpleName(), Double.valueOf( -1.0 )  },
+      { DoubleObj1.class, Double.valueOf( 1.0 ) },
+      { DoubleObj2.class, Double.valueOf( -1.0 )  },
+      
       // properties are set to: INF, -INF
-      { DoubleObj3.class.getSimpleName(), Double.valueOf( Double.POSITIVE_INFINITY ) },
-      { DoubleObj4.class.getSimpleName(), Double.valueOf( Double.NEGATIVE_INFINITY ) },
+      { DoubleObj3.class, Double.valueOf( Double.POSITIVE_INFINITY ) },
+      { DoubleObj4.class, Double.valueOf( Double.NEGATIVE_INFINITY ) },
+      
       // properties are set to: NAN
-      { DoubleObj5.class.getSimpleName(), Double.valueOf( Double.NaN ) },
+      { DoubleObj5.class, Double.valueOf( Double.NaN ) },
+      
       // properties aren't set. defaults are set to: 1.0, -1.0
-      { DoubleObj6.class.getSimpleName(), Double.valueOf( 1.0 ) },
-      { DoubleObj7.class.getSimpleName(), Double.valueOf( -1.0 ) },
+      { DoubleObj6.class, Double.valueOf( 1.0 ) },
+      { DoubleObj7.class, Double.valueOf( -1.0 ) },
+      
       // properties with customized names
-      { DoubleObj8.class.getSimpleName(), Double.valueOf( 1.0 ) },
+      { DoubleObj8.class, Double.valueOf( 1.0 ) },
+      
       // missing value
-      { DoubleObj9.class.getSimpleName(), null },
+      { DoubleObj9.class, null },
+      
     };
   }
   
   @Test(dataProvider = "data")
-  public void doubles( String name, Double expected ) throws Exception {
-    GetDouble getter = this.<GetDouble>lookup( name );
+  public void doubles( Class<GetDouble> clazz, Double expected ) throws Exception {
+    GetDouble getter = this.<GetDouble>lookup( clazz );
     assertThat( getter.getValue(), is( expected ) );
   }
   

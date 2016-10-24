@@ -19,25 +19,31 @@ public class ByteSettingTest extends AbstractConfigurationTest {
   @DataProvider(name = "data")
   public Object[][] data() {
     return new Object[][] {
+      
       // properties are set to: 1, -1
-      { ByteObj1.class.getSimpleName(), Byte.valueOf( (byte) 1 ) },
-      { ByteObj2.class.getSimpleName(), Byte.valueOf( (byte) -1 ) },
+      { ByteObj1.class, Byte.valueOf( (byte) 1 ) },
+      { ByteObj2.class, Byte.valueOf( (byte) -1 ) },
+      
       // properties are set to: MAX, -MAX
-      { ByteObj3.class.getSimpleName(), Byte.valueOf( Byte.MAX_VALUE ) },
-      { ByteObj4.class.getSimpleName(), Byte.valueOf( Byte.MIN_VALUE ) },
+      { ByteObj3.class, Byte.valueOf( Byte.MAX_VALUE ) },
+      { ByteObj4.class, Byte.valueOf( Byte.MIN_VALUE ) },
+      
       // properties aren't set. defaults are set to: 1, -1
-      { ByteObj5.class.getSimpleName(), Byte.valueOf( (byte) 1 ) },
-      { ByteObj6.class.getSimpleName(), Byte.valueOf( (byte) -1 ) },
+      { ByteObj5.class, Byte.valueOf( (byte) 1 ) },
+      { ByteObj6.class, Byte.valueOf( (byte) -1 ) },
+      
       // properties with customized names
-      { ByteObj7.class.getSimpleName(), Byte.valueOf( (byte) 1 ) },
+      { ByteObj7.class, Byte.valueOf( (byte) 1 ) },
+      
       // missing value
-      { ByteObj8.class.getSimpleName(), null },
+      { ByteObj8.class, null },
+      
     };
   }
   
   @Test(dataProvider = "data")
-  public void bytes( String name, Byte expected ) throws Exception {
-    GetByte getter = this.<GetByte>lookup( name );
+  public void bytes( Class<GetByte> clazz, Byte expected ) throws Exception {
+    GetByte getter = this.<GetByte>lookup( clazz );
     assertThat( getter.getValue(), is( expected ) );
   }
   

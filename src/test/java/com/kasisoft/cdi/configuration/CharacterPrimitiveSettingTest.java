@@ -3,8 +3,6 @@
 //import static org.hamcrest.MatcherAssert.*;
 //import static org.hamcrest.Matchers.*;
 //
-//import com.kasisoft.cdi.testbasis.*;
-//
 //import org.testng.annotations.*;
 //
 //import javax.annotation.*;
@@ -21,25 +19,29 @@
 //  @DataProvider(name = "data")
 //  public Object[][] data() {
 //    return new Object[][] {
+//      
 //      // properties are set to: 'a'
-//      { Char1.class.getSimpleName(), 'a' },
+//      { Char1.class, 'a' },
+//      
 //      // properties aren't set. defaults are set to: 'b'
-//      { Char2.class.getSimpleName(), 'b'  },
+//      { Char2.class, 'b'  },
+//      
 //      // properties with customized names
-//      { Char3.class.getSimpleName(), 'c' },
+//      { Char3.class, 'c' },
+//      
 //    };
 //  }
 //  
-//  @Test(dataProvider = "data")
-//  public void chars( String name, char expected ) throws Exception {
-//    GetChar getter = (GetChar) getContainer().getContext().lookup( "java:global/configuration/" + name );
+//  @Test(dataProvider = "data", enabled = false)
+//  public void chars( Class<GetChar> clazz, char expected ) throws Exception {
+//    GetChar getter = (GetChar) lookup( clazz );
 //    assertThat( getter.getValue(), is( expected ) );
 //  }
 //  
 //  /** @todo [19-Nov-2014:KASI]   Investigate whether it makes sense that an UndeclaredThrowableException turns up. */
 //  @Test(expectedExceptions = Exception.class)
 //  public void missingValue() throws Exception {
-//    getContainer().getContext().lookup( "java:global/configuration/Char4" );
+//    lookup( Char4.class );
 //  }
 //  
 //  private static interface GetChar {

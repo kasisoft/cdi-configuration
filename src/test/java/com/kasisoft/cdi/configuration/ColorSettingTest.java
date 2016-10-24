@@ -21,22 +21,28 @@ public class ColorSettingTest extends AbstractConfigurationTest {
   @DataProvider(name = "data")
   public Object[][] data() {
     return new Object[][] {
-      { ColorObj1.class.getSimpleName(), new Color( 0xff0000 ) },
-      { ColorObj2.class.getSimpleName(), new Color( 0xff00ffaa, true ) },
+      
+      { ColorObj1.class, new Color( 0xff0000 ) },
+      { ColorObj2.class, new Color( 0xff00ffaa, true ) },
+      
       // missing value
-      { ColorObj3.class.getSimpleName(), null },
+      { ColorObj3.class, null },
+      
       // customized name
-      { ColorObj4.class.getSimpleName(), new Color( 0x00ffaa ) },
+      { ColorObj4.class, new Color( 0x00ffaa ) },
+      
       // default value
-      { ColorObj5.class.getSimpleName(), new Color( 0xccffaa ) },
+      { ColorObj5.class, new Color( 0xccffaa ) },
+      
       // invalid and not required
-      { ColorObj6.class.getSimpleName(), null },
+      { ColorObj6.class, null },
+      
     };
   }
   
   @Test(dataProvider = "data")
-  public void colors( String name, Color expected ) throws Exception {
-    GetColor getter = this.<GetColor>lookup( name );
+  public void colors( Class<GetColor> clazz, Color expected ) throws Exception {
+    GetColor getter = this.<GetColor>lookup( clazz );
     assertThat( getter.getValue(), is( expected ) );
   }
   

@@ -19,32 +19,38 @@ public class FloatPrimitiveSettingTest extends AbstractConfigurationTest {
   @DataProvider(name = "data")
   public Object[][] data() {
     return new Object[][] {
+      
       // properties are set to: 1.0, -1.0
-      { Float1.class.getSimpleName(), (float) 1.0 },
-      { Float2.class.getSimpleName(), (float) -1.0  },
+      { Float1.class, (float) 1.0 },
+      { Float2.class, (float) -1.0  },
+      
       // properties are set to: INF, -INF
-      { Float3.class.getSimpleName(), Float.POSITIVE_INFINITY },
-      { Float4.class.getSimpleName(), Float.NEGATIVE_INFINITY  },
+      { Float3.class, Float.POSITIVE_INFINITY },
+      { Float4.class, Float.NEGATIVE_INFINITY  },
+      
       // properties are set to: NAN
-      { Float5.class.getSimpleName(), Float.NaN },
+      { Float5.class, Float.NaN },
+      
       // properties aren't set. defaults are set to: 1.0, -1.0
-      { Float6.class.getSimpleName(), (float) 1.0  },
-      { Float7.class.getSimpleName(), (float) -1.0 },
+      { Float6.class, (float) 1.0  },
+      { Float7.class, (float) -1.0 },
+      
       // properties with customized names
-      { Float8.class.getSimpleName(), (float) 1.0 },
+      { Float8.class, (float) 1.0 },
+      
     };
   }
   
   @Test(dataProvider = "data")
-  public void floats( String name, float expected ) throws Exception {
-    GetFloat getter = this.<GetFloat>lookup( name );
+  public void floats( Class<GetFloat> clazz, float expected ) throws Exception {
+    GetFloat getter = this.<GetFloat>lookup( clazz );
     assertThat( getter.getValue(), is( expected ) );
   }
   
   /** @todo [19-Nov-2014:KASI]   Investigate whether it makes sense that an UndeclaredThrowableException turns up. */
   @Test(expectedExceptions = Exception.class)
   public void missingValue() throws Exception {
-    this.<GetFloat>lookup( Float9.class.getSimpleName() );
+    this.<Float9>lookup( Float9.class );
   }
   
   private static interface GetFloat {

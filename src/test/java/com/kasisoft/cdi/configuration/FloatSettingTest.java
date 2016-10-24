@@ -19,27 +19,34 @@ public class FloatSettingTest extends AbstractConfigurationTest {
   @DataProvider(name = "data")
   public Object[][] data() {
     return new Object[][] {
+      
       // properties are set to: 1.0, -1.0
-      { FloatObj1.class.getSimpleName(), Float.valueOf( (float) 1.0 ) },
-      { FloatObj2.class.getSimpleName(), Float.valueOf( (float) -1.0 ) },
+      { FloatObj1.class, Float.valueOf( (float) 1.0 ) },
+      { FloatObj2.class, Float.valueOf( (float) -1.0 ) },
+      
       // properties are set to: INF, -INF
-      { FloatObj3.class.getSimpleName(), Float.valueOf( Float.POSITIVE_INFINITY ) },
-      { FloatObj4.class.getSimpleName(), Float.valueOf( Float.NEGATIVE_INFINITY ) },
+      { FloatObj3.class, Float.valueOf( Float.POSITIVE_INFINITY ) },
+      { FloatObj4.class, Float.valueOf( Float.NEGATIVE_INFINITY ) },
+      
       // properties are set to: NAN
-      { FloatObj5.class.getSimpleName(), Float.valueOf( Float.NaN ) },
+      { FloatObj5.class, Float.valueOf( Float.NaN ) },
+      
       // properties aren't set. defaults are set to: 1.0, -1.0
-      { FloatObj6.class.getSimpleName(), Float.valueOf( (float) 1.0 ) },
-      { FloatObj7.class.getSimpleName(), Float.valueOf( (float) -1.0 ) },
+      { FloatObj6.class, Float.valueOf( (float) 1.0 ) },
+      { FloatObj7.class, Float.valueOf( (float) -1.0 ) },
+      
       // properties with customized names
-      { FloatObj8.class.getSimpleName(), Float.valueOf( (float) 1.0 ) },
+      { FloatObj8.class, Float.valueOf( (float) 1.0 ) },
+      
       // missing value
-      { FloatObj9.class.getSimpleName(), null },
+      { FloatObj9.class, null },
+      
     };
   }
   
   @Test(dataProvider = "data")
-  public void floats( String name, Float expected ) throws Exception {
-    GetFloat getter = this.<GetFloat>lookup( name );
+  public void floats( Class<GetFloat> clazz, Float expected ) throws Exception {
+    GetFloat getter = this.<GetFloat>lookup( clazz );
     assertThat( getter.getValue(), is( expected ) );
   }
   

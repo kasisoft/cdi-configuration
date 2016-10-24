@@ -51,66 +51,36 @@
     </developer>
   </developers>
 
-  <properties>
-    <version-testbasis>${project.version}</version-testbasis>
-  </properties>
-
-  <dependencyManagement>
-  
-    <dependencies>
-    
-      <dependency>
-        <groupId>com.kasisoft.cdi</groupId>
-        <artifactId>testbasis</artifactId>
-        <version>${version-testbasis}</version>
-        <scope>test</scope>
-      </dependency>
-    
-    </dependencies>
-    
-  </dependencyManagement>
-
   <dependencies>
-  
+
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <scope>provided</scope>
     </dependency>
-  
+
     <dependency>
       <groupId>com.kasisoft</groupId>
       <artifactId>com.kasisoft.libs.common</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.openejb</groupId>
+      <groupId>org.apache.tomee</groupId>
       <artifactId>javaee-api</artifactId>
       <scope>provided</scope>
     </dependency>
   
     <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>openejb-core</artifactId>
-      <scope>provided</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-jdk14</artifactId>
-        </exclusion>
-      </exclusions>
+      <groupId>com.kasisoft.cdi</groupId>
+      <artifactId>weldex</artifactId>
+      <scope>test</scope>
     </dependency>
-    
+  
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
     </dependency>
-    
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-    </dependency>
-    
+
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
@@ -129,28 +99,19 @@
       <scope>test</scope>
     </dependency>
 
-    <dependency>
-      <groupId>com.kasisoft.cdi</groupId>
-      <artifactId>testbasis</artifactId>
-      <scope>test</scope>
-    </dependency>
-
   </dependencies>
-    
-  <distributionManagement>
+
+  <build>
   
-    <snapshotRepository>
-      <id>kasisoft-snapshots</id>
-      <name>kasisoft-snapshots</name>
-      <url>https://kasisoft.com/artifactory/libs-snapshot-local</url>
-    </snapshotRepository>
+    <plugins>
     
-    <repository>
-      <id>kasisoft-release</id>
-      <name>kasisoft-release</name>
-      <url>https://kasisoft.com/artifactory/libs-release-local</url>
-    </repository>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+      </plugin>
       
-  </distributionManagement>
+    </plugins>
   
+  </build>
+    
 </project>

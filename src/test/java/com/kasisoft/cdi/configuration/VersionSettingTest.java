@@ -23,21 +23,25 @@ public class VersionSettingTest extends AbstractConfigurationTest {
   @DataProvider(name = "data")
   public Object[][] data() throws ParseException {
     return new Object[][] {
-      { VersionObj1.class.getSimpleName(), new Version("1.0") },
-      { VersionObj2.class.getSimpleName(), new Version("2.1.3") },
-      { VersionObj3.class.getSimpleName(), new Version("1.0.4.qualifier") },
-      { VersionObj4.class.getSimpleName(), new Version("1.0.4_qualifier") },
-      { VersionObj5.class.getSimpleName(), new Version("1.9") },
+      
+      { VersionObj1.class, new Version("1.0") },
+      { VersionObj2.class, new Version("2.1.3") },
+      { VersionObj3.class, new Version("1.0.4.qualifier") },
+      { VersionObj4.class, new Version("1.0.4_qualifier") },
+      { VersionObj5.class, new Version("1.9") },
+      
       // missing value
-      { VersionObj6.class.getSimpleName(), null },
+      { VersionObj6.class, null },
+      
       // customized name
-      { VersionObj7.class.getSimpleName(), new Version("3.0") },
+      { VersionObj7.class, new Version("3.0") },
+      
     };
   }
   
   @Test(dataProvider = "data")
-  public void versions( String name, Version expected ) throws Exception {
-    GetVersion getter = this.<GetVersion>lookup( name );
+  public void versions( Class<GetVersion> clazz, Version expected ) throws Exception {
+    GetVersion getter = this.<GetVersion>lookup( clazz );
     assertThat( getter.getValue(), is( expected ) );
   }
   

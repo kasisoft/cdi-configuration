@@ -19,25 +19,31 @@ public class ShortSettingTest extends AbstractConfigurationTest {
   @DataProvider(name = "data")
   public Object[][] data() {
     return new Object[][] {
+      
       // properties are set to: 1, -1
-      { ShortObj1.class.getSimpleName(), Short.valueOf( (short) 1 ) },
-      { ShortObj2.class.getSimpleName(), Short.valueOf( (short) -1 ) },
+      { ShortObj1.class, Short.valueOf( (short) 1 ) },
+      { ShortObj2.class, Short.valueOf( (short) -1 ) },
+      
       // properties are set to: MAX, -MAX
-      { ShortObj3.class.getSimpleName(), Short.valueOf( Short.MAX_VALUE ) },
-      { ShortObj4.class.getSimpleName(), Short.valueOf( Short.MIN_VALUE ) },
+      { ShortObj3.class, Short.valueOf( Short.MAX_VALUE ) },
+      { ShortObj4.class, Short.valueOf( Short.MIN_VALUE ) },
+      
       // properties aren't set. defaults are set to: 1, -1
-      { ShortObj5.class.getSimpleName(), Short.valueOf( (short) 1 ) },
-      { ShortObj6.class.getSimpleName(), Short.valueOf( (short) -1 ) },
+      { ShortObj5.class, Short.valueOf( (short) 1 ) },
+      { ShortObj6.class, Short.valueOf( (short) -1 ) },
+      
       // properties with customized names
-      { ShortObj7.class.getSimpleName(), Short.valueOf( (short) 1 ) },
+      { ShortObj7.class, Short.valueOf( (short) 1 ) },
+      
       // missing value
-      { ShortObj8.class.getSimpleName(), null },
+      { ShortObj8.class, null },
+      
     };
   }
   
   @Test(dataProvider = "data")
-  public void shorts( String name, Short expected ) throws Exception {
-    GetShort getter = this.<GetShort>lookup( name );
+  public void shorts( Class<GetShort> clazz, Short expected ) throws Exception {
+    GetShort getter = this.<GetShort>lookup( clazz );
     assertThat( getter.getValue(), is( expected ) );
   }
   

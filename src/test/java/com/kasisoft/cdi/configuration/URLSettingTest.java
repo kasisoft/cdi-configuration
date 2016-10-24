@@ -21,20 +21,25 @@ public class URLSettingTest extends AbstractConfigurationTest {
   @DataProvider(name = "data")
   public Object[][] data() throws MalformedURLException {
     return new Object[][] {
-      { URLObj1.class.getSimpleName(), new URL( "file:/E:/output.log" ) },
-      { URLObj2.class.getSimpleName(), new URL( "http://www.amiga-news.de" ) },
+      
+      { URLObj1.class, new URL( "file:/E:/output.log" ) },
+      { URLObj2.class, new URL( "http://www.amiga-news.de" ) },
+      
       // missing value
-      { URLObj3.class.getSimpleName(), null },
+      { URLObj3.class, null },
+      
       // customized name
-      { URLObj4.class.getSimpleName(), new URL( "http://blog.gwup.net" ) },
+      { URLObj4.class, new URL( "http://blog.gwup.net" ) },
+      
       // default value
-      { URLObj5.class.getSimpleName(), new URL( "http://www.scienceblogs.org" ) },
+      { URLObj5.class, new URL( "http://www.scienceblogs.org" ) },
+      
     };
   }
   
   @Test(dataProvider = "data")
-  public void urls( String name, URL expected ) throws Exception {
-    GetURL getter = this.<GetURL>lookup( name );
+  public void urls( Class<GetURL> clazz, URL expected ) throws Exception {
+    GetURL getter = this.<GetURL>lookup( clazz );
     assertThat( getter.getValue(), is( expected ) );
   }
   

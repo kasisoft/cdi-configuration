@@ -19,30 +19,35 @@ public class BytePrimitiveSettingTest extends AbstractConfigurationTest {
   @DataProvider(name = "data")
   public Object[][] data() {
     return new Object[][] {
+      
       // properties are set to: 1, -1
-      { Byte1.class.getSimpleName(), (byte) 1 },
-      { Byte2.class.getSimpleName(), (byte) -1  },
+      { Byte1.class, (byte) 1 },
+      { Byte2.class, (byte) -1  },
+      
       // properties are set to: MAX, -MAX
-      { Byte3.class.getSimpleName(), Byte.MAX_VALUE },
-      { Byte4.class.getSimpleName(), Byte.MIN_VALUE },
+      { Byte3.class, Byte.MAX_VALUE },
+      { Byte4.class, Byte.MIN_VALUE },
+      
       // properties aren't set. defaults are set to: 1, -1
-      { Byte5.class.getSimpleName(), (byte) 1  },
-      { Byte6.class.getSimpleName(), (byte) -1 },
+      { Byte5.class, (byte) 1  },
+      { Byte6.class, (byte) -1 },
+      
       // properties with customized names
-      { Byte7.class.getSimpleName(), (byte) 1 },
+      { Byte7.class, (byte) 1 },
+      
     };
   }
   
   @Test(dataProvider = "data")
-  public void bytes( String name, byte expected ) throws Exception {
-    GetByte getter = this.<GetByte>lookup( name );
+  public void bytes( Class<GetByte> clazz, byte expected ) throws Exception {
+    GetByte getter = this.<GetByte>lookup( clazz );
     assertThat( getter.getValue(), is( expected ) );
   }
   
   /** @todo [19-Nov-2014:KASI]   Investigate whether it makes sense that an UndeclaredThrowableException turns up. */
   @Test(expectedExceptions = Exception.class)
   public void missingValue() throws Exception {
-    this.<GetByte>lookup( Byte8.class.getSimpleName() );
+    this.<Byte8>lookup( Byte8.class );
   }
   
   private static interface GetByte {

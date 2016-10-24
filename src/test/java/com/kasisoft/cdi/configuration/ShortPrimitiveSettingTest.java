@@ -19,30 +19,35 @@ public class ShortPrimitiveSettingTest extends AbstractConfigurationTest {
   @DataProvider(name = "data")
   public Object[][] data() {
     return new Object[][] {
+      
       // properties are set to: 1, -1
-      { Short1.class.getSimpleName(), (short) 1 },
-      { Short2.class.getSimpleName(), (short) -1  },
+      { Short1.class, (short) 1 },
+      { Short2.class, (short) -1  },
+      
       // properties are set to: MAX, -MAX
-      { Short3.class.getSimpleName(), Short.MAX_VALUE },
-      { Short4.class.getSimpleName(), Short.MIN_VALUE },
+      { Short3.class, Short.MAX_VALUE },
+      { Short4.class, Short.MIN_VALUE },
+      
       // properties aren't set. defaults are set to: 1, -1
-      { Short5.class.getSimpleName(), (short) 1  },
-      { Short6.class.getSimpleName(), (short) -1 },
+      { Short5.class, (short) 1  },
+      { Short6.class, (short) -1 },
+      
       // properties with customized names
-      { Short7.class.getSimpleName(), (short) 1 },
+      { Short7.class, (short) 1 },
+      
     };
   }
   
   @Test(dataProvider = "data")
-  public void shorts( String name, short expected ) throws Exception {
-    GetShort getter = this.<GetShort>lookup( name );
+  public void shorts( Class<GetShort> clazz, short expected ) throws Exception {
+    GetShort getter = this.<GetShort>lookup( clazz );
     assertThat( getter.getValue(), is( expected ) );
   }
   
   /** @todo [19-Nov-2014:KASI]   Investigate whether it makes sense that an UndeclaredThrowableException turns up. */
   @Test(expectedExceptions = Exception.class)
   public void missingValue() throws Exception {
-    this.<GetShort>lookup( Short8.class.getSimpleName() );
+    this.<Short8>lookup( Short8.class );
   }
   
   private static interface GetShort {
