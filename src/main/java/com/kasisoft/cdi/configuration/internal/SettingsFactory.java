@@ -202,7 +202,7 @@ public class SettingsFactory {
 
   private File getFileSetting( InjectionPoint ip ) {
     DirSetting setting = ip.getAnnotated().getAnnotation( DirSetting.class );
-    File       result  = getSetting( ip, File.class, setting.value(), setting.defaultValue(), Boolean.valueOf( setting.required() ) );
+    File       result  = getSetting( ip.getMember().getName(), File.class, setting.value(), setting.defaultValue(), Boolean.valueOf( setting.required() ) );
     if( result != null ) {
       // check whether we should extend the file
       String extension = StringFunctions.cleanup( setting.extension() );
@@ -241,20 +241,28 @@ public class SettingsFactory {
 
   private <T> T getSetting( InjectionPoint ip, Class<T> type ) {
     Setting setting = ip.getAnnotated().getAnnotation( Setting.class );
-    return getSetting( ip, type, setting.value(), setting.defaultValue(), Boolean.valueOf( setting.required() ) );
+    return getSetting( ip.getMember().getName(), setting, type );
+  }
+
+  private <T> T getSetting( String memberName, Setting setting, Class<T> type ) {
+    return getSetting( memberName, type, setting.value(), setting.defaultValue(), Boolean.valueOf( setting.required() ) );
   }
 
   private <T> T getPrimitiveSetting( InjectionPoint ip, Class<T> type ) {
     PrimitiveSetting setting = ip.getAnnotated().getAnnotation( PrimitiveSetting.class );
-    return getSetting( ip, type, setting.value(), setting.defaultValue(), null );
+    return getPrimitiveSetting( ip.getMember().getName(), setting, type );
   }
-  
-  private <T> T getSetting( InjectionPoint ip, Class<T> type, String key, String defvalue, Boolean required ) {
+
+  private <T> T getPrimitiveSetting( String memberName, PrimitiveSetting setting, Class<T> type ) {
+    return getSetting( memberName, type, setting.value(), setting.defaultValue(), null );
+  }
+
+  private <T> T getSetting( String memberName, Class<T> type, String key, String defvalue, Boolean required ) {
     
     key = StringFunctions.cleanup( key );
     if( key == null ) {
       // the user hasn't specified a custom property name, so we'll take the member name instead
-      key = ip.getMember().getName();
+      key = memberName;
     }
 
     String value = SettingsLoader.instance().getValue( key, StringFunctions.cleanup( defvalue ) );
