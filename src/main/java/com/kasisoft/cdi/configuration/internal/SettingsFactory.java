@@ -104,15 +104,6 @@ public class SettingsFactory {
     return getSetting( ip, File.class );
   }
 
-//  @Produces @Setting
-//  public URL getSettingAsURL( InjectionPoint ip ) {
-//    File file = getSettingAsFile( ip );
-//    if( file != null ) {
-//      return file.toURL();
-//    }
-//    return null;
-//  }
-
   @Produces @Setting
   public URI getSettingAsURI( InjectionPoint ip ) {
     return getSetting( ip, URI.class );
@@ -134,9 +125,45 @@ public class SettingsFactory {
 
   @Produces @DirSetting
   public File getDirSettingAsFile( InjectionPoint ip ) {
-    return getFileSetting( ip );
+    DirSetting setting = ip.getAnnotated().getAnnotation( DirSetting.class );
+    File       result  = getSetting( ip.getMember().getName(), File.class, setting.value(), setting.defaultValue(), setting.required() );
+    if( result != null ) {
+      // check whether we should extend the file
+      String extension = StringFunctions.cleanup( setting.extension() );
+      if( extension != null ) {
+        result = extendDir( result, extension );
+      }
+    }
+    if( result != null ) {
+      try {
+        result = result.getCanonicalFile();
+      } catch( IOException ex ) {
+        throw error( canonical_failure.format( result.getPath(), ex.getLocalizedMessage() ),  ex );
+      }
+    }
+    return result;
   }
-
+  
+  private IllegalStateException error( String message, Exception ex ) {
+    if( ex != null ) {
+      log.warn( message, ex );
+      return new IllegalStateException( message, ex );
+    } else {
+      log.warn( message );
+      return new IllegalStateException( message );
+    }
+  }
+  
+  @Produces @DirSetting
+  public Path getDirSettingAsPath( InjectionPoint ip ) {
+    File file = getDirSettingAsFile( ip );
+    if( file != null ) {
+      return file.toPath();
+    } else {
+      return null;
+    }
+  }
+  
   @Produces @DirSetting
   public URI getDirSettingAsURI( InjectionPoint ip ) {
     File file = getDirSettingAsFile( ip );
@@ -147,12 +174,13 @@ public class SettingsFactory {
   }
 
   @Produces @DirSetting
-  public Path getDirSettingAsPath( InjectionPoint ip ) {
-    URI uri = getDirSettingAsURI( ip );
-    if( uri != null ) {
-      return Paths.get( uri );
+  public String getDirSettingAsString( InjectionPoint ip ) {
+    File file = getDirSettingAsFile( ip );
+    if( file != null ) {
+      return file.getAbsolutePath();
+    } else {
+      return null;
     }
-    return null;
   }
 
   @Produces @Setting
@@ -200,41 +228,17 @@ public class SettingsFactory {
     return getSetting( ip, String.class );
   }
 
-  private File getFileSetting( InjectionPoint ip ) {
-    DirSetting setting = ip.getAnnotated().getAnnotation( DirSetting.class );
-    File       result  = getSetting( ip.getMember().getName(), File.class, setting.value(), setting.defaultValue(), Boolean.valueOf( setting.required() ) );
-    if( result != null ) {
-      // check whether we should extend the file
-      String extension = StringFunctions.cleanup( setting.extension() );
-      if( extension != null ) {
-        result = extendDir( result, extension );
-      }
-    }
-    return result;
-  }
-  
   private File extendDir( File dir, String extension ) {
     if( ! dir.isDirectory() ) {
       dir.mkdirs();
     }
     if( ! dir.isDirectory() ) {
-      String message = base_is_not_a_dir.format( dir.getAbsolutePath() );
-      log.error( message );
-      throw new IllegalStateException( message );
+      throw error( base_is_not_a_dir.format( dir.getAbsolutePath() ), null );
     }
     File result = new File( dir, extension );
-    try {
-      result = result.getCanonicalFile();
-    } catch( IOException ex ) {
-      String message = canonical_failure.format( result.getPath(), ex.getLocalizedMessage() );
-      log.error( message );
-      throw new IllegalStateException();
-    }
     result.mkdirs();
     if( ! result.isDirectory() ) {
-      String message = makedir_failure.format( result.getAbsolutePath() );
-      log.error( message );
-      throw new IllegalStateException();
+      throw error( makedir_failure.format( result.getAbsolutePath() ), null );
     }
     return result;
   }
@@ -250,14 +254,10 @@ public class SettingsFactory {
 
   private <T> T getPrimitiveSetting( InjectionPoint ip, Class<T> type ) {
     PrimitiveSetting setting = ip.getAnnotated().getAnnotation( PrimitiveSetting.class );
-    return getPrimitiveSetting( ip.getMember().getName(), setting, type );
+    return getSetting( ip.getMember().getName(), type, setting.value(), setting.defaultValue(), true );
   }
 
-  private <T> T getPrimitiveSetting( String memberName, PrimitiveSetting setting, Class<T> type ) {
-    return getSetting( memberName, type, setting.value(), setting.defaultValue(), null );
-  }
-
-  private <T> T getSetting( String memberName, Class<T> type, String key, String defvalue, Boolean required ) {
+  private <T> T getSetting( String memberName, Class<T> type, String key, String defvalue, boolean required ) {
     
     key = StringFunctions.cleanup( key );
     if( key == null ) {
@@ -267,20 +267,14 @@ public class SettingsFactory {
 
     String value = SettingsLoader.instance().getValue( key, StringFunctions.cleanup( defvalue ) );
 
-    if( value == null ) {
-      if( (required == null) || required.booleanValue() ) {
-        String message = missing_required_value.format( key );
-        log.error( message );
-        throw new IllegalStateException( message );
-      }
+    if( (value == null) && required ) {
+      throw error( missing_required_value.format( key ), null );
     }
 
     try {
       return (T) adapters.get( type ).unmarshal( value );
     } catch( Exception ex ) {
-      String message = invalid_type.format( value, key, type.getName(), ex.getLocalizedMessage() );
-      log.error( message );
-      throw new IllegalStateException( message );
+      throw error( invalid_type.format( value, key, type.getName(), ex.getLocalizedMessage() ), ex );
     }
     
   }
