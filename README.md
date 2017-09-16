@@ -1,41 +1,32 @@
-Purpose
-=======
+# Purpose
+
 
 This library provides a production factory for settings of various types.
 
 
-Contact
-=======
+# Infos
 
-* daniel.kasmeroglu@kasisoft.net
-
-
-Requirements
-============
-
- * Java 8
+* [eMail: daniel.kasmeroglu@kasisoft.net](mailto:daniel.kasmeroglu@kasisoft.net)
+* [Jira](https://kasisoft.com/jira/projects/CDICFG)
+* [Jenkins](https://kasisoft.com/jenkins/job/cdi.com.kasisoft.cdi.configuration)
+* [GIT](https://kasisoft.com/bitbucket/projects/CDI/repos/configuration)
 
 
-Jira
-====
-
-* https://kasisoft.com/jira/browse/CDICFG
-
-
-Maven
-=====
+# Development Setup
 
 I assume that you're familiar with Maven. If not I suggest to visit the following page:
 
 * https://maven.apache.org/
 
 
-Releases
---------
+## Requirements
 
-Releases can be found in Maven Central:
+* Java 8
 
-* http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.kasisoft.cdi%22%20AND%20a%3A%22freemarker-service%22
+
+## Maven
+
+### Releases
 
      <dependency>
          <groupId>com.kasisoft.cdi</groupId>
@@ -43,8 +34,8 @@ Releases can be found in Maven Central:
         <version>0.8</version>
      </dependency>
 
-Snapshots
----------
+
+### Snapshots
 
 Snapshots can be used while accessing a dedicated maven repository. Your POM needs the following settings:
 
@@ -68,8 +59,7 @@ Snapshots can be used while accessing a dedicated maven repository. Your POM nee
      </repositories>
      
      
-USAGE
-=====
+# USAGE
 
 By default all properties within the resources /settings.properties will be loaded through __SettingsLoader__.
 
@@ -82,8 +72,7 @@ or:
     private Path      value;
 
 
-License
-=======
+# License
 
 MIT License
 
