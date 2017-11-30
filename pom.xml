@@ -65,7 +65,7 @@
     <version-lombok>1.16.18</version-lombok>
     <version-slf4j>1.7.5</version-slf4j>
     <version-testng>6.9.10</version-testng>
-    <version-weldex>0.3</version-weldex>
+    <version-weldex>0.4-SNAPSHOT</version-weldex>
     
     <!-- versioning: plugins -->
     <plugin-version-jacoco>0.7.9</plugin-version-jacoco>
