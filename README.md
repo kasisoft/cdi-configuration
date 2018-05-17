@@ -1,3 +1,7 @@
+# DISCONTINUED
+# DISCONTINUED
+# DISCONTINUED
+
 # Purpose
 
 
@@ -7,9 +11,7 @@ This library provides a production factory for settings of various types.
 # Infos
 
 * [eMail: daniel.kasmeroglu@kasisoft.net](mailto:daniel.kasmeroglu@kasisoft.net)
-* [Jira](https://kasisoft.com/jira/projects/CDICFG)
-* [Jenkins](https://kasisoft.com/jenkins/job/cdi.com.kasisoft.cdi.configuration)
-* [GIT](https://kasisoft.com/bitbucket/projects/CDI/repos/configuration)
+* [GIT](https://kasisoft.com/bitbucket/projects/GRAV/repos/configuration)
 
 
 # Development Setup
