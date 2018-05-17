@@ -13,7 +13,7 @@
   
   <groupId>com.kasisoft.cdi</groupId>
   <artifactId>configuration</artifactId>
-  <version>0.8</version>
+  <version>0.9-SNAPSHOT</version>
 
   <name>CDI :: Configuration</name>
   <url>https://kasisoft.com/bitbucket/projects/GRAV/repos/configuration</url>
